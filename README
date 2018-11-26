@@ -1,0 +1,15 @@
+hci_hw
+
+a hci application with a menu and a page and some feedback.
+
+== build and run
+
+$ make
+$ ./hci_hw
+
+== exercises
+
+- compile and run, explore.
+- Add more pages. Show the time.
+- keep the time up to date. think of a way to leave the page.
+- extend by a submenu.
