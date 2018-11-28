@@ -7,10 +7,10 @@ namespace{
 class HelloWorldLabel : public QLabel{
 public:
 	HelloWorldLabel() : QLabel(){
-		setText("New Tab");
+		setText("Seunghwan Tab");
 	}
 };
 
-INSTALL_TAB(HelloWorldLabel, "Matt's");
+INSTALL_TAB(HelloWorldLabel, "Seunghwan's Tab");
 
 }

@@ -25,7 +25,7 @@ HEADERS += window.h tabs.h
 SOURCES += globals.cc main.cc window.cc tabs.cc hello.cc
 
 # just link demo tabs
-# LIBS += scsfsa.o sc17mtab.o
+# LIBS += scsfsa.o sc17mtab.o sc17r2jb.o sc17j4a.o fy16sj.o
 
 # rebuild demo tabs
-SOURCES += scsfsa.cc sc17mtab.cc
+SOURCES += scsfsa.cc sc17mtab.cc sc17r2jb.cc sc17j4a.cc fy16sj.cc
