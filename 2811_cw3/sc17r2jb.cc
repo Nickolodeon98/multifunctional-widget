@@ -7,7 +7,7 @@ namespace{
 class HelloWorldLabel : public QLabel{
 public:
 	HelloWorldLabel() : QLabel(){
-		setText("Ryans Tab");
+		setText("hi hi hi");
 	}
 };
 
