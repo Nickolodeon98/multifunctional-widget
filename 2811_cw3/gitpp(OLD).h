@@ -22,16 +22,9 @@
  *
  * gitpp5
  * - remove bogus trace.h include.
- *
- * gitpp6
- * - allow iterating commits in a custom ref
- * - properly handle trace header.
- * - COMMIT::time_seconds
- * - COMMIT::show
- *
- * gitpp7
- * - fix inline bug that broke linking
  */
+
+#warning this is a preliminary version of gitpp
 
 #include <git2/repository.h>
 #include <git2/annotated_commit.h>
@@ -52,19 +45,7 @@
 #include <string> // std::to_string
 #include <vector> // std::to_string
 
-#ifdef HAVE_TRACE_H
-# include "trace.h"
-#else
-#include <iostream>
-#define untested()
-#define incomplete() ( \
-    std::cerr << "@@#\n@@@\nincomplete:" \
-              << __FILE__ << ":" << __LINE__ << ":" << __func__ << "\n" )
-#define unreachable() ( \
-    std::cerr << "@@#\n@@@\nunreachable:" \
-              << __FILE__ << ":" << __LINE__ << ":" << __func__ << "\n" )
-#endif
-
+#include "trace.h"
 /* -------------------------------------------------------------------------- */
 
 // libgit2 wrapper
@@ -113,38 +94,9 @@ private:
 	std::pair<std::string, std::string> _s;
 };
 
-
-namespace{
-int _do_print(git_diff_delta const*,
-		         git_diff_hunk const*,
-					git_diff_line const* l, void* buf){
-	std::string* b=(std::string*)(buf);
-	*b+= std::string(1, l->origin);
-	*b+= " " + std::string(l->content, l->content_len);
-	return 0;
-}
-}
-class DIFFPRINTER{
-
-public:
-	DIFFPRINTER(git_diff* diff){
-
-		git_diff_format_t f=GIT_DIFF_FORMAT_PATCH;
-		//int git_diff_print(git_diff*, git_diff_format _t, git_diff_line_cb, void*)’
-
-		buf="";
-		git_diff_print(diff, f, &_do_print, &buf);
-
-	}
-	std::string const& to_string(){return buf;}
-
-private:
-	std::string buf;
-};
-
 class COMMIT{
 public:
-	explicit COMMIT(git_oid i, git_repository* r): _id(i), _r(r) {
+	explicit COMMIT(git_oid i, git_repository* r): _id(i) {
 		if( git_commit_lookup(&_c, r, &_id) ){
 			throw "lookup error\n";
 		}else{
@@ -170,15 +122,12 @@ public:
 	std::string author() const{
 		return signature().name();
 	}
-	std::string message() const {
+	std::string message() {
 		return git_commit_message(_c);
    }
-	git_time_t time_seconds() const {
-		return git_commit_time(_c);
-	}
 	std::string time(unsigned len=99) const {
-		(void)len;
-		git_time_t seconds=time_seconds();
+		(void) len;
+		git_time_t seconds=git_commit_time(_c);
 
 		char *a = ctime(&seconds);
 		std::string ret(a);
@@ -188,39 +137,17 @@ public:
 	SIGNATURE signature() const{
 		return SIGNATURE(_c);
 	}
-
-	std::string diff() const{
-		incomplete();
-		return "COMMIT::diff not implemented";
-	}
 	std::string show() const{
-		int err=0;
-		git_diff *diff;
-		git_tree* t;
-		git_commit* commit;
-		git_diff_options diffopts = GIT_DIFF_OPTIONS_INIT;
-
-		if((err=git_commit_lookup(&commit, _r, &_id) < 0)){
-		}else if((err=git_commit_tree(&t, commit)) < 0){
-		}else{
-			git_diff_tree_to_workdir(&diff, _r, t, &diffopts);
-		}
-
-		if(err){
-			throw EXCEPTION("problem in diff : "
-					 + std::string(giterr_last()->message));
-		}else{
-			return DIFFPRINTER(diff).to_string();
-		}
+		incomplete();
+		return "the diff (incomplete)";
 	}
 	std::string commit_message() const{
-		return message();
+		incomplete();
+		return "incomplete";
 	}
 
 private:
 	const git_oid _id;
-	// const REPO& _r;
-	git_repository* _r;
 	git_commit* _c;
 }; // COMMIT
 
@@ -232,12 +159,13 @@ inline std::ostream& operator<< (std::ostream& o, COMMIT const& c)
 class REPO;
 
 class CONFIG {
-public: // types	
+public: // types
 	class ITEM {
 	public:
 		explicit ITEM(git_config_entry* e, git_config_iterator* p, CONFIG& c)
 		    : _cfg(c), _entry(e) // , _r(c._repo)
 		{
+			incomplete();
 			(void)p;
 		//	if( git_config_next(&_entry, p)){
 		//		throw EXCEPTION("can't get");
@@ -373,7 +301,7 @@ inline std::ostream& operator<< (std::ostream& o, CONFIG::ITEM const& c)
 }
 
 class COMMITS {
-public: // types	
+public: // types
 	class COMMIT_WALKER {
 	public:
 		COMMIT_WALKER(COMMITS& c): _c(&c){
@@ -405,7 +333,7 @@ public: // types
 	};
 
 public: // construct
-	COMMITS(REPO& r, std::string const&);
+	COMMITS(REPO& r);
 	~COMMITS(){
 		git_revwalk_free(_walk);
 	}
@@ -425,7 +353,7 @@ public: // iterate
 private:
 	REPO& _repo;
 	git_revwalk* _walk;
-}; // COMMITS
+};
 
 class BRANCHES;
 
@@ -454,8 +382,7 @@ public:
 			const git_error *e = giterr_last();
 			throw EXCEPTION_CANT_FIND(
 			          " repository (" + std::string(e->message) + ", "
-			          + "error " +  std::to_string(error) + " "
-			          + std::to_string(e->klass) + ")");
+			          + "error " +  std::to_string(error) + " " + std::to_string(e->klass) + ")");
 		}
 
 	}
@@ -465,8 +392,8 @@ public:
 	}
 
 public:
-	COMMITS commits(std::string const& ref="HEAD"){
-		return COMMITS(*this, ref);
+	COMMITS commits(){
+		return COMMITS(*this);
 	}
 	CONFIG config(){
 		return CONFIG(*this);
@@ -515,7 +442,7 @@ inline COMMIT COMMITS::create(std::string const& msg)
 	}else if ((err=git_index_write_tree(&tree_id, index)) < 0) {
 	}else if ((err=git_tree_lookup(&tree, r, &tree_id)) < 0) {
 	}else if ((err=git_commit_create_v(&oid, r, "HEAD", sig, sig,
-	                            NULL, m, tree, parents, parent)) < 0)
+				                          NULL, m, tree, parents, parent)) < 0)
 	{
 	}else{
 	}
@@ -545,7 +472,7 @@ public:
 	}
 	std::ostream& print(std::ostream& o) const{
 		return o << name();
-	}	
+	}
 
 	//BRANCH& reset(COMMIT&){
 	//	incomplete();
@@ -677,7 +604,7 @@ inline CONFIG::CONFIG(REPO& r) // : _repo(r)
 	}
 }
 // ---------------------------------------------------------------------------- //
-inline COMMITS::COMMITS(REPO& r, std::string const& what="HEAD")
+inline COMMITS::COMMITS(REPO& r)
 	: _repo(r)
 {
 	git_revwalk_new(&_walk, _repo._repo);
@@ -685,7 +612,7 @@ inline COMMITS::COMMITS(REPO& r, std::string const& what="HEAD")
 	int error;
 	git_object *obj;
 
-	if ((error = git_revparse_single(&obj, _repo._repo, what.c_str())) < 0){
+	if ((error = git_revparse_single(&obj, _repo._repo, "HEAD")) < 0){
 		// cannot resolve HEAD.
 		_walk = nullptr;
 	}else{
@@ -709,8 +636,7 @@ inline CONFIG::ITEM CONFIG::ITER::operator*()
 	return CONFIG::ITEM(_e, _i, _cfg);
 }
 
-static int resolve_refish(git_annotated_commit **commit, git_repository *repo,
-                          const char *refish)
+static int resolve_refish(git_annotated_commit **commit, git_repository *repo, const char *refish)
 {
 	git_reference *ref;
 	git_object *obj;
@@ -760,8 +686,7 @@ inline void REPO::checkout(std::string const& refname)
 		throw EXCEPTION("cant lookup commit for " + refname);
 	}else if(git_checkout_tree(_repo, (const git_object *)target_commit, &opts)){
 		git_annotated_commit_free(target);
-		throw EXCEPTION("error during checkout "+refname+": "
-		                  + std::string(giterr_last()->message));
+		throw EXCEPTION("error during checkout "+refname+": " + std::string(giterr_last()->message));
 	}else if ( 1 ) { //  } auto ref=git_annotated_commit_ref(target)) {
 		if(git_repository_set_head(_repo, ("refs/heads/"+refname).c_str())){
 			git_annotated_commit_free(target);
