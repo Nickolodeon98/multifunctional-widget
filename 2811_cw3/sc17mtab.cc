@@ -2,6 +2,8 @@
 
 #include <QLabel>
 #include <string>
+#include <sstream>
+
 #include <iostream>
 #include <string>
 
@@ -15,41 +17,61 @@ namespace listCommits{
 class HelloWorldLabel : public QLabel{
 public:
 	HelloWorldLabel() : QLabel(){
+    //Create git path
     std::string path=".";
   	GITPP::REPO r(path.c_str());
 
+    //count number of branches
     int a = 0;
     for(GITPP::BRANCH i : r.branches())
     {
       a = a + 1;
     }
 
+    //Initialise varaibales
     QGridLayout* layout = new QGridLayout();
     QLabel *labels[a];
     QLineEdit *lineEdits[a];
     QLabel *branchInfo[a];
+    QLabel *commitInfo[a];
 
+    a=2;
+    //If more than one branch
     if(a>1)
     {
       int count = 0;
 
+      //List all branches
+      QLineEdit* textField=new QLineEdit();
+      textField->setFont(QFont("Typewriter", 15));
+      textField->setPlaceholderText("Select Branch Name...");
+      layout->addWidget(textField, count+1, 0);
+
+      labels[count] = new QLabel(textField->text());
+      layout->addWidget(labels[count],10, 0);
+
+      count = 1;
+
       for(auto i : r.branches())
       {
-        labels[count] = new QLabel(tr("%1:").arg(count + 1));
-        branchInfo[count] = new QLabel("QUACK QUACK");              //CHANGE TO BE POPUALTED BY BRANCH NAME
+        labels[count] = new QLabel(tr("%1:").arg(count));
+        branchInfo[count] = new QLabel(QString::fromStdString(i.name()));
 
-        layout->addWidget(labels[count], count + 1, 0);
-        layout->addWidget(branchInfo[count], count + 1, 1);
+        layout->addWidget(branchInfo[count], count+1, 1);
+        layout->addWidget(labels[count], count+1, 0);
 
         count = count + 1;
       }
 
-      QLineEdit* textField=new QLineEdit();
-  		textField->setFont(QFont("Typewriter", 15));
-  		textField->setPlaceholderText("Select Branch Name...");
+      //Get input to show which branch
+      // QPushButton* button = qobject_cast<QPushButton*>( textField );
+      //
+      // if ( button )
+      // {
+      //   connect( button, SIGNAL(clicked()), this, SLOT(keyboardButtonPressed()) );
+      // }
 
-      layout->addWidget(textField, count+1, 0);
-      // std::string str = std::to_string(a);
+      // GITPP::REPO* repository=nullptr;
       // QLabel* label = new QLabel("str");
       // layout->addWidget(label,a,0);
       // ) << "select a branch to display commits\n";
@@ -63,35 +85,63 @@ public:
       // }
 
       // r.checkout("new_branch");
-      // r.checkout("master");
 
-      int j = 0;
-      for(auto i : r.commits())
+      //List commits for the branch
+      if(1==1) //On Submit of textField
       {
-        if(j<10)
+        for(auto i : r.branches())
         {
-          labels[j] = new QLabel(tr("%1:").arg(j + 1));
-          lineEdits[j] = new QLineEdit;
-          layout->addWidget(labels[j], j + 1, 0);
-          layout->addWidget(lineEdits[j], j + 1, 1);
-          // QLabel* label = new QLabel("str");
-          // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
-          j = j + 1;
+          if(textField->text() == QString::fromStdString(i.name()))
+          {
+            // r.checkout(textField->text());                                     //////ADD checkout funcion
+          }
         }
-        else
+        // try
+        // {
+        //   repository=new GITPP::REPO();
+        // }catch(GITPP::EXCEPTIONCANTFIND const& e)
+        // {
+        //   QMessageBox errordialog(QMessageBox::Critical, "err";
+        //   errordialog.exec();
+        // }
+        // std::string str = std::to_string(a);
+        int j = 0 ;
+        int gridValue = a + 1;
+        for(auto i : r.commits())
         {
-          break;
+          std::stringstream ss;
+          ss << "<" << i.id() << "> <" << i.author() << "> <" << i.message() << "";
+          std::string s = ss.str();
+
+          //std::string commitDisplay << "<" <<  "> <" << i.author() << "> <" << i.message() << "";
+          labels[j] = new QLabel(tr("%1:").arg(j + 1));
+          commitInfo[j] = new QLabel(QString::fromStdString(s));
+
+          layout->addWidget(labels[j], gridValue + 1, 0);
+          layout->addWidget(commitInfo[j], gridValue + 1, 1);
+          if(j<10)
+          {
+            // QLabel* label = new QLabel("str");
+            // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
+            j = j + 1;
+          }
+          else
+          {
+            break;
+          }
         }
       }
     }
     else
     {
+      //Count commits
       int countCommits = 0;
       for(auto i : r.commits())
       {
         countCommits = countCommits + 1;
       }
 
+      //If no commits
       if(countCommits==0)
       {
         labels[0] = new QLabel("Not Commits to display!");
@@ -104,6 +154,7 @@ public:
       }
       else
       {
+        //List commits (upto to ten)
         int j = 0;
         for(auto i : r.commits())
         {
