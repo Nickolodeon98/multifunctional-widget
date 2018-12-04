@@ -448,7 +448,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/2811_gui1.0.0 || mkdir -p .tmp/2811_gui1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/2811_gui1.0.0/ && $(COPY_FILE) --parents window.h tabs.h .tmp/2811_gui1.0.0/ && $(COPY_FILE) --parents globals.cc main.cc window.cc tabs.cc hello.cc scsfsa.cc sc17mtab.cc sc17r2jb.cc sc17j4a.cc fy16sj.cc fy16stl.cc .tmp/2811_gui1.0.0/ && (cd `dirname .tmp/2811_gui1.0.0` && $(TAR) 2811_gui1.0.0.tar 2811_gui1.0.0 && $(COMPRESS) 2811_gui1.0.0.tar) && $(MOVE) `dirname .tmp/2811_gui1.0.0`/2811_gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/2811_gui1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/2811_gui1.0.0/ && $(COPY_FILE) --parents window.h tabs.h sc17r2jbWidgets.h .tmp/2811_gui1.0.0/ && $(COPY_FILE) --parents globals.cc main.cc window.cc tabs.cc hello.cc scsfsa.cc sc17mtab.cc sc17r2jb.cc sc17j4a.cc fy16sj.cc fy16stl.cc .tmp/2811_gui1.0.0/ && (cd `dirname .tmp/2811_gui1.0.0` && $(TAR) 2811_gui1.0.0.tar 2811_gui1.0.0 && $(COMPRESS) 2811_gui1.0.0.tar) && $(MOVE) `dirname .tmp/2811_gui1.0.0`/2811_gui1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/2811_gui1.0.0
 
 
 clean:compiler_clean 
@@ -1711,7 +1711,8 @@ sc17mtab.o: sc17mtab.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QComboBox
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sc17mtab.o sc17mtab.cc
 
 sc17r2jb.o: sc17r2jb.cc globals.h \
@@ -1816,11 +1817,10 @@ sc17r2jb.o: sc17r2jb.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore/qfiledevice.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qvector2d.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		sc17r2jbWidgets.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLabel \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlabel.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qframe.h \
-		gitpp.h \
-		trace.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QGridLayout \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlayout.h \
@@ -2150,7 +2150,9 @@ sc17r2jb.o: sc17r2jb.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit \
+		gitpp.h \
+		trace.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sc17r2jb.o sc17r2jb.cc
 
 sc17j4a.o: sc17j4a.cc globals.h \
