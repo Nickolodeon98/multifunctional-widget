@@ -54,10 +54,6 @@ public:
 
       count = 1;
 
-      comboBox->addItem("HELLO");
-      comboBox->addItem("GOODBYE");
-
-
       for(GITPP::BRANCH i : r.branches())
       {
         comboBox->addItem(QString::fromStdString(i.name()));
@@ -97,7 +93,7 @@ public:
         if(j<10)
         {
           std::stringstream ss;
-          ss << "<" << i.id() << "> <" << i.author() << "> <" << i.message() << "";
+          ss << "<" << i.id() << "> \n <" << i.author() << ">\n <" << i.message() << " \n";
           std::string s = ss.str();
 
           //std::string commitDisplay << "<" <<  "> <" << i.author() << "> <" << i.message() << "";
