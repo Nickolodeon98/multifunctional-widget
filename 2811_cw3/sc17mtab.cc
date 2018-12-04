@@ -11,12 +11,15 @@
 #include <QGridLayout>
 #include <QtWidgets>
 #include <QLineEdit>
+#include <QComboBox>
 
-namespace listCommits{
 
-class HelloWorldLabel : public QLabel{
+
+namespace {
+
+class HelloWorldLabel : public QTabWidget{
 public:
-	HelloWorldLabel() : QLabel(){
+	HelloWorldLabel() : QTabWidget(){
     //Create git path
     std::string path=".";
   	GITPP::REPO r(path.c_str());
@@ -29,10 +32,12 @@ public:
     }
 
     //Initialise varaibales
-    QGridLayout* layout = new QGridLayout();
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *commitLayout = new QGridLayout;
+    QGridLayout *branchLayout = new QGridLayout;
+
+
     QLabel *labels[a];
-    QLineEdit *lineEdits[a];
-    QLabel *branchInfo[a];
     QLabel *commitInfo[a];
 
     a=2;
@@ -41,73 +46,55 @@ public:
     {
       int count = 0;
 
-      //List all branches
+      //Populate combobox with branches
+      QComboBox *comboBox = new QComboBox;
       QLineEdit* textField=new QLineEdit();
-      textField->setFont(QFont("Typewriter", 15));
-      textField->setPlaceholderText("Select Branch Name...");
-      layout->addWidget(textField, count+1, 0);
-
-      labels[count] = new QLabel(textField->text());
-      layout->addWidget(labels[count],10, 0);
+      QPushButton *updateButton = new QPushButton("Update List", this);
+      connect(updateButton, SIGNAL(clicked()), this, SLOT(function()));
 
       count = 1;
 
-      for(auto i : r.branches())
+      comboBox->addItem("HELLO");
+      comboBox->addItem("GOODBYE");
+
+
+      for(GITPP::BRANCH i : r.branches())
       {
-        labels[count] = new QLabel(tr("%1:").arg(count));
-        branchInfo[count] = new QLabel(QString::fromStdString(i.name()));
-
-        layout->addWidget(branchInfo[count], count+1, 1);
-        layout->addWidget(labels[count], count+1, 0);
-
-        count = count + 1;
+        comboBox->addItem(QString::fromStdString(i.name()));
       }
 
-      //Get input to show which branch
-      // QPushButton* button = qobject_cast<QPushButton*>( textField );
-      //
-      // if ( button )
-      // {
-      //   connect( button, SIGNAL(clicked()), this, SLOT(keyboardButtonPressed()) );
-      // }
-
-      // GITPP::REPO* repository=nullptr;
-      // QLabel* label = new QLabel("str");
-      // layout->addWidget(label,a,0);
-      // ) << "select a branch to display commits\n";
-
-
-      // a = 0;
-      // for(GITPP::BRANCH i : r.branches())
-      // {
-      //   std::cout << a << " "<< i <<"\n" ;
-      //   a = a + 1;
-      // }
+      branchLayout->addWidget(comboBox,count+1, 0);
+      branchLayout->addWidget(updateButton, count+1, 1);
 
       // r.checkout("new_branch");
 
-      //List commits for the branch
-      if(1==1) //On Submit of textField
+      mainLayout->addLayout(branchLayout);
+    }
+    int countCommits = 0;
+    for(GITPP::COMMIT i : r.commits())
+    {
+      countCommits = countCommits + 1;
+    }
+
+    // countCommits=countCommits+1;
+    //If no commits
+    if(countCommits==0)
+    {
+      labels[0] = new QLabel("No Commits to display!");
+      labels[1] = new QLabel("Add commits to display!");
+
+      commitLayout->addWidget(labels[0], 0, 0);
+      commitLayout->addWidget(labels[1], 1, 0);
+
+
+    }
+    else
+    {
+      //List commits (upto to ten)
+      int j = 0;
+      for(auto i : r.commits())
       {
-        for(auto i : r.branches())
-        {
-          if(textField->text() == QString::fromStdString(i.name()))
-          {
-            // r.checkout(textField->text());                                     //////ADD checkout funcion
-          }
-        }
-        // try
-        // {
-        //   repository=new GITPP::REPO();
-        // }catch(GITPP::EXCEPTIONCANTFIND const& e)
-        // {
-        //   QMessageBox errordialog(QMessageBox::Critical, "err";
-        //   errordialog.exec();
-        // }
-        // std::string str = std::to_string(a);
-        int j = 0 ;
-        int gridValue = a + 1;
-        for(auto i : r.commits())
+        if(j<10)
         {
           std::stringstream ss;
           ss << "<" << i.id() << "> <" << i.author() << "> <" << i.message() << "";
@@ -117,65 +104,20 @@ public:
           labels[j] = new QLabel(tr("%1:").arg(j + 1));
           commitInfo[j] = new QLabel(QString::fromStdString(s));
 
-          layout->addWidget(labels[j], gridValue + 1, 0);
-          layout->addWidget(commitInfo[j], gridValue + 1, 1);
-          if(j<10)
-          {
-            // QLabel* label = new QLabel("str");
-            // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
-            j = j + 1;
-          }
-          else
-          {
-            break;
-          }
+          commitLayout->addWidget(labels[j], j, 0);
+          commitLayout->addWidget(commitInfo[j], j, 1);
+          // QLabel* label = new QLabel("str");
+          // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
+          j = j + 1;
         }
-      }
-    }
-    else
-    {
-      //Count commits
-      int countCommits = 0;
-      for(auto i : r.commits())
-      {
-        countCommits = countCommits + 1;
-      }
-
-      //If no commits
-      if(countCommits==0)
-      {
-        labels[0] = new QLabel("Not Commits to display!");
-        labels[1] = new QLabel("Add commits to display!");
-
-        layout->addWidget(labels[0], 0, 0);
-        layout->addWidget(labels[1], 1, 0);
-
-
-      }
-      else
-      {
-        //List commits (upto to ten)
-        int j = 0;
-        for(auto i : r.commits())
+        else
         {
-          if(j<10)
-          {
-            labels[j] = new QLabel(tr("%1:").arg(j + 1));
-            lineEdits[j] = new QLineEdit;
-            layout->addWidget(labels[j], j + 1, 0);
-            layout->addWidget(lineEdits[j], j + 1, 1);
-            // QLabel* label = new QLabel("str");
-            // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
-            j = j + 1;
-          }
-          else
-          {
-            break;
-          }
+          break;
         }
       }
     }
-		setLayout(layout);
+    mainLayout->addLayout(commitLayout);
+    setLayout(mainLayout);
 	}
 };
 
