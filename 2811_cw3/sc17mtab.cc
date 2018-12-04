@@ -50,6 +50,7 @@ public:
       QComboBox *comboBox = new QComboBox;
       QLineEdit* textField=new QLineEdit();
       QPushButton *updateButton = new QPushButton("Update List", this);
+      updateButton->setToolTip("Choose branch to display commits, then press me to show the commits");
       connect(updateButton, SIGNAL(clicked()), this, SLOT(function()));
 
       count = 1;
@@ -92,8 +93,9 @@ public:
       {
         if(j<10)
         {
+          //aga
           std::stringstream ss;
-          ss << "<" << i.id() << "> \n <" << i.author() << ">\n <" << i.message() << " \n";
+          ss << "ID: " << i.id() << "             \nAuthor: " << i.author() << "             \nMessage: " << i.message();
           std::string s = ss.str();
 
           //std::string commitDisplay << "<" <<  "> <" << i.author() << "> <" << i.message() << "";
