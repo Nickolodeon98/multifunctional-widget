@@ -69,9 +69,9 @@ public:	ConfigurationTab() : QTabWidget(){
 		//textField->setFont(QFont("Typewriter", 25));
 		emailEdit->setPlaceholderText("new email here");
 
-		connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));
+		//connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));
 
-		connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));
+		//connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));
 
 		// QLineEdit *emailEdit = new QLineEdit();
 		// //textField->setFont(QFont("Typewriter", 25));
