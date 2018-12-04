@@ -1,5 +1,5 @@
 #include "globals.h"
-#include "sc17r2jbWidgets.h"
+//#include "sc17r2jbWidgets.h"
 
 #include <QLabel>
 #include <string>
@@ -13,19 +13,20 @@ namespace{
 class ConfigurationTab: public QTabWidget{
 	//layouts
 	QVBoxLayout *mainLayout = new QVBoxLayout;
-	QGridLayout *coreLayout = new QGridLayout;
+	CoreLayout *coreLayout = new CoreLayout;
+	// QGridLayout *coreLayout = new QGridLayout;
 	QGridLayout *userLayout = new QGridLayout;
 
 	QLabel *title = new QLabel("<h3>Configurations<h3>");
 	//labels for core
-	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
-	QLabel *rfvValueLabel = new QLabel("a");
-	QLabel *filemodeLabel = new QLabel("filemode:");
-	QLabel *fmValueLabel = new QLabel("a");
-	QLabel *bareLabel = new QLabel("bare:");
-	QLabel *bareValueLabel = new QLabel("a");
-	QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
-	QLabel *lruValueLabel = new QLabel("a");
+	// QLabel *rfvLabel = new QLabel("repositoryformatversion:");
+	// QLabel *rfvValueLabel = new QLabel("a");
+	// QLabel *filemodeLabel = new QLabel("filemode:");
+	// QLabel *fmValueLabel = new QLabel("a");
+	// QLabel *bareLabel = new QLabel("bare:");
+	// QLabel *bareValueLabel = new QLabel("a");
+	// QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
+	// QLabel *lruValueLabel = new QLabel("a");
 	//labels for user
 	QLabel *nameLabel = new QLabel("name:");
 	QLabel *nameLabelValue = new QLabel("                           ");
@@ -33,22 +34,22 @@ class ConfigurationTab: public QTabWidget{
 	QLabel *emailValueLabel = new QLabel("                           ");
 	//for updating name
 	QLineEdit *nameEdit = new QLineEdit();
-	QPushButton *nameButton = new QPushButton("update", this); //to be changed
+	QPushButton *nameButton = new QPushButton("update", this);
 	//for updating email
 	QLineEdit *emailEdit = new QLineEdit();
-	QPushButton *emailButton = new QPushButton("update", this); //to be changed
+	QPushButton *emailButton = new QPushButton("update", this);
 
 public:	ConfigurationTab(): QTabWidget(){
-	title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
+	//title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 	//core layout
-	coreLayout->addWidget(rfvLabel, 0, 0);
-	coreLayout->addWidget(rfvValueLabel, 0, 1);
-	coreLayout->addWidget(filemodeLabel, 1, 0);
-	coreLayout->addWidget(fmValueLabel, 1, 1);
-	coreLayout->addWidget(bareLabel, 2, 0);
-	coreLayout->addWidget(bareValueLabel, 2, 1);
-	coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
-	coreLayout->addWidget(lruValueLabel, 3, 1);
+	// coreLayout->addWidget(rfvLabel, 0, 0);
+	// coreLayout->addWidget(rfvValueLabel, 0, 1);
+	// coreLayout->addWidget(filemodeLabel, 1, 0);
+	// coreLayout->addWidget(fmValueLabel, 1, 1);
+	// coreLayout->addWidget(bareLabel, 2, 0);
+	// coreLayout->addWidget(bareValueLabel, 2, 1);
+	// coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
+	// coreLayout->addWidget(lruValueLabel, 3, 1);
 	//user layout
 	userLayout->addWidget(nameLabel, 0, 0);
 	userLayout->addWidget(nameLabelValue, 0, 1);
@@ -80,6 +81,30 @@ void handleEmailButton(){
 INSTALL_TAB(ConfigurationTab, "Ryan's Tab"); //change to sc17r2jb
 }
 
+class CoreLayout: public QGridLayout{
+	//Q_OBJECT
+	QGridLayout *coreLayout = new QGridLayout;
+	//labels
+	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
+	QLabel *rfvValueLabel = new QLabel("a");
+	QLabel *filemodeLabel = new QLabel("filemode:");
+	QLabel *fmValueLabel = new QLabel("a");
+	QLabel *bareLabel = new QLabel("bare:");
+	QLabel *bareValueLabel = new QLabel("a");
+	QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
+	QLabel *lruValueLabel = new QLabel("a");
+
+public: CoreLayout(): QGridLayout(){
+	coreLayout->addWidget(rfvLabel, 0, 0);
+	coreLayout->addWidget(rfvValueLabel, 0, 1);
+	coreLayout->addWidget(filemodeLabel, 1, 0);
+	coreLayout->addWidget(fmValueLabel, 1, 1);
+	coreLayout->addWidget(bareLabel, 2, 0);
+	coreLayout->addWidget(bareValueLabel, 2, 1);
+	coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
+	coreLayout->addWidget(lruValueLabel, 3, 1);
+	}
+};
 
 /*
 class GIT_LCONFIG : public HCI_PAGE{ //prints out info
