@@ -8,7 +8,7 @@
 #include <QtWidgets>
 #include <QLineEdit>
 
-namespace configurations{
+namespace{
 class ConfigurationTab: public QTabWidget{
 	//layouts
 	QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -57,12 +57,12 @@ public:	ConfigurationTab() : QTabWidget(){
 		userLayout->addWidget(emailValueLabel, 1, 1);
 		userLayout->addWidget(emailEdit, 1, 2);
 		userLayout->addWidget(emailButton, 1, 3);
-
+		//line edit text
 		nameEdit->setPlaceholderText("new name here");
 		emailEdit->setPlaceholderText("new email here");
-		// connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
-		//
-		// connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
+		//buttons
+		connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
+		connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
 		//add to mainLayout
 		mainLayout->addWidget(title);
 		mainLayout->addLayout(coreLayout);
