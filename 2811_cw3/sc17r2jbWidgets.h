@@ -7,11 +7,11 @@
 #ifndef CoreLayout
 #define CoreLayout
 
-class NameEdit: public QPushButton{
+class NameButton: public QPushButton{
 	Q_OBJECT
   public:
-    NameEdit();
+    NameButton();
   private:
-	  QPushButton *nameEdit;
+	  QPushButton *nameButton;
 };
 #endif

@@ -9,6 +9,10 @@
 #include <QtWidgets>
 #include <QLineEdit>
 
+// NameButton::NameButton(){
+// 	NameButton *nameButton = new NameButton("update", this); //to be changed
+// }
+
 namespace{
 class ConfigurationTab: public QTabWidget{
 	//layouts
