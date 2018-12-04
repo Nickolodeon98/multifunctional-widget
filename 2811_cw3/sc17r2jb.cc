@@ -10,39 +10,35 @@
 
 namespace configurations{
 class ConfigurationTab: public QTabWidget{
-	//have attributes here instead?
+	//layouts
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	QGridLayout *coreLayout = new QGridLayout;
+	QGridLayout *userLayout = new QGridLayout;
+
+	QLabel *title = new QLabel("<h3>Configurations<h3>");
+	//labels for core
+	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
+	QLabel *rfvValueLabel = new QLabel("a");
+	QLabel *filemodeLabel = new QLabel("filemode:");
+	QLabel *fmValueLabel = new QLabel("a");
+	QLabel *bareLabel = new QLabel("bare:");
+	QLabel *bareValueLabel = new QLabel("a");
+	QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
+	QLabel *lruValueLabel = new QLabel("a");
+	//labels for user
 	QLabel *nameLabel = new QLabel("name:");
 	QLabel *nameLabelValue = new QLabel("                           ");
 	QLabel *emailLabel = new QLabel("email:");
 	QLabel *emailValueLabel = new QLabel("                           ");
-
+	//for updating name
 	QLineEdit *nameEdit = new QLineEdit();
-
-	QLineEdit *emailEdit = new QLineEdit();
-
 	QPushButton *nameButton = new QPushButton("update", this);
-
+	//for updating email
+	QLineEdit *emailEdit = new QLineEdit();
 	QPushButton *emailButton = new QPushButton("update", this);
 
 public:	ConfigurationTab() : QTabWidget(){
-		//declare widgets and layouts
-		QVBoxLayout *mainLayout = new QVBoxLayout;
-		QGridLayout *coreLayout = new QGridLayout;
-		QGridLayout *userLayout = new QGridLayout;
-
-		//setText("<h3>Configurations<h3>");
-		QLabel* title = new QLabel("<h3>Configurations<h3>");
-		title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
-		//declaring core.x widgets
-		QLabel *rfvLabel = new QLabel("repositoryformatversion:");
-		QLabel *rfvValueLabel = new QLabel("a");
-		QLabel *filemodeLabel = new QLabel("filemode:");
-		QLabel *fmValueLabel = new QLabel("a");
-		QLabel *bareLabel = new QLabel("bare:");
-		QLabel *bareValueLabel = new QLabel("a");
-		QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
-		QLabel *lruValueLabel = new QLabel("a");
-
+		//title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 		//core layout
 		coreLayout->addWidget(rfvLabel, 0, 0);
 		coreLayout->addWidget(rfvValueLabel, 0, 1);
@@ -52,36 +48,6 @@ public:	ConfigurationTab() : QTabWidget(){
 		coreLayout->addWidget(bareValueLabel, 2, 1);
 		coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
 		coreLayout->addWidget(lruValueLabel, 3, 1);
-
-		//declaring user.x widgets
-		// QLabel *nameLabel = new QLabel("name:");
-		// QLabel *nameLabelValue = new QLabel("                           ");
-		// QLabel *emailLabel = new QLabel("email:");
-		// QLabel *emailValueLabel = new QLabel("                           ");
-
-		// QLineEdit *nameEdit = new QLineEdit();
-		// //textField->setFont(QFont("Typewriter", 25));
-		// nameEdit->setPlaceholderText("new name here");
-
-		//textField->setFont(QFont("Typewriter", 25));
-		nameEdit->setPlaceholderText("new name here");
-
-		//textField->setFont(QFont("Typewriter", 25));
-		emailEdit->setPlaceholderText("new email here");
-
-		//connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));
-
-		//connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));
-
-		// QLineEdit *emailEdit = new QLineEdit();
-		// //textField->setFont(QFont("Typewriter", 25));
-		// emailEdit->setPlaceholderText("new email here");
-		//
-		// QPushButton *nameButton = new QPushButton("update", this);
-		// connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));
-		//
-		// QPushButton *emailButton = new QPushButton("update", this);
-		// connect(nameButton, SIGNAL (released()), this, SLOT (handleEmailButton()));
 		//user layout
 		userLayout->addWidget(nameLabel, 0, 0);
 		userLayout->addWidget(nameLabelValue, 0, 1);
@@ -92,11 +58,15 @@ public:	ConfigurationTab() : QTabWidget(){
 		userLayout->addWidget(emailEdit, 1, 2);
 		userLayout->addWidget(emailButton, 1, 3);
 
+		nameEdit->setPlaceholderText("new name here");
+		emailEdit->setPlaceholderText("new email here");
+		// connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
+		//
+		// connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
 		//add to mainLayout
 		mainLayout->addWidget(title);
 		mainLayout->addLayout(coreLayout);
 		mainLayout->addLayout(userLayout);
-
 		setLayout(mainLayout);
 	}
 	void handleNameButton(){
