@@ -1,5 +1,5 @@
 #include "globals.h"
-// #include "sc17r2jbWidgets.h"
+//#include "sc17r2jbWidgets.h"
 
 #include <QLabel>
 #include <string>
@@ -23,13 +23,13 @@ class ConfigurationTab: public QTabWidget{
 	QLabel *title = new QLabel("<h3>Configurations<h3>");
 	//labels for core
 	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
-	QLabel *rfvValueLabel = new QLabel("a");
+	QLabel *rfvValueLabel = new QLabel();
 	QLabel *filemodeLabel = new QLabel("filemode:");
-	QLabel *fmValueLabel = new QLabel("a");
+	QLabel *fmValueLabel = new QLabel();
 	QLabel *bareLabel = new QLabel("bare:");
-	QLabel *bareValueLabel = new QLabel("a");
+	QLabel *bareValueLabel = new QLabel();
 	QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
-	QLabel *lruValueLabel = new QLabel("a");
+	QLabel *lruValueLabel = new QLabel();
 	//labels for user
 	QLabel *nameLabel = new QLabel("name:");
 	QLabel *nameLabelValue = new QLabel("                           ");
@@ -43,6 +43,9 @@ class ConfigurationTab: public QTabWidget{
 	QPushButton *emailButton = new QPushButton("update", this); //to be changed
 
 public:	ConfigurationTab(): QTabWidget(){
+	//getting variables from .config
+	
+
 	title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 	//core layout
 	coreLayout->addWidget(rfvLabel, 0, 0);
@@ -81,7 +84,7 @@ void handleEmailButton(){
 	emailEdit->setText("okay");
 	}
 };
-INSTALL_TAB(ConfigurationTab, "Configrations"); //change to sc17r2jb
+INSTALL_TAB(ConfigurationTab, "Ryan's Tab"); //change to sc17r2jb
 }
 
 
