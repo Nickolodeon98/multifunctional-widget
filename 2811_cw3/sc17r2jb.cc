@@ -63,13 +63,13 @@ public:	ConfigurationTab(): QTabWidget(){
 	userLayout->addWidget(emailEdit, 1, 2);
 	userLayout->addWidget(emailButton, 1, 3);
 	//line edit text
-	nameEdit->setPlaceholderText("new name here");
+	nameEdit->setPlaceholderText("new name..."");
 	emailEdit->setPlaceholderText("new email here");
 	//buttons
 	//connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
 	//connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
 	//add to mainLayout
-	mainLayout->addWidget(title);
+	//mainLayout->addWidget(title);
 	mainLayout->addLayout(coreLayout);
 	mainLayout->addLayout(userLayout);
 	setLayout(mainLayout);
