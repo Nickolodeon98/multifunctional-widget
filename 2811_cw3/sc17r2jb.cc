@@ -66,8 +66,8 @@ public:	ConfigurationTab(): QTabWidget(){
 	nameEdit->setPlaceholderText("new name here");
 	emailEdit->setPlaceholderText("new email here");
 	//buttons
-	connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
-	connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
+	//connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
+	//connect(emailButton, SIGNAL (released()), this, SLOT (handleEmailButton()));  //these create issues
 	//add to mainLayout
 	mainLayout->addWidget(title);
 	mainLayout->addLayout(coreLayout);
