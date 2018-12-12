@@ -38,34 +38,31 @@ public:
       QGridLayout *branchLayout = new QGridLayout;
 
 
+      //Declaring labels
       QLabel *labels[a];
       QLabel *commitInfo[a];
+      //If more than one branch show combobox and Button
       if(a>1)
       {
         int count = 0;
 
-        //Populate combobox with branches
         QComboBox *comboBox = new QComboBox;
-
-        //////////////////////////BUTTON////////////////////////////////////
         QPushButton *updateButton = new QPushButton("Update Button", this);
-        QString comboBox_Value;
-        comboBox_Value = comboBox->currentText();
+        //connect comboBox, when chagned send text to function
         connect(comboBox, SIGNAL(currentTextChanged(QString)), SLOT(changeBranch(QString)));
-        mainLayout->addWidget(updateButton);
-        ///////////////////////END OF BUTTON////////////////////////////////
 
       count = 1;
-
+      //Populate combobox with branch names
       for(GITPP::BRANCH i : r.branches())
       {
         comboBox->addItem(QString::fromStdString(i.name()));
       }
 
+      //add combobox and update button
       branchLayout->addWidget(comboBox,count+1, 0);
       branchLayout->addWidget(updateButton, count+1, 1);
 
-
+      //set layout
       mainLayout->addLayout(branchLayout);
     }
     int countCommits = 0;
@@ -74,7 +71,6 @@ public:
       countCommits = countCommits + 1;
     }
 
-    // countCommits=countCommits+1;
     //If no commits
     if(countCommits==0)
     {
@@ -83,30 +79,28 @@ public:
 
       commitLayout->addWidget(labels[0], 0, 0);
       commitLayout->addWidget(labels[1], 1, 0);
-
-
     }
-    else
+    else //If there are commits
     {
       labels[0] = new QLabel("No Commits to display!");
-      //List commits (upto to ten)
+
       int j = 0;
+      //loop through all commits upto ten
       for(auto i : r.commits())
       {
         if(j<10)
         {
+          //create message and convert to correct data type
           std::stringstream ss;
           ss << "<" << i.id() << "> \n <" << i.author() << ">\n <" << i.message() << " \n";
           std::string s = ss.str();
 
-          //std::string commitDisplay << "<" <<  "> <" << i.author() << "> <" << i.message() << "";
+          //Add label, iteratae upto ten
           labels[j] = new QLabel(tr("%1:").arg(j + 1));
           commitInfo[j] = new QLabel(QString::fromStdString(s));
 
           commitLayout->addWidget(labels[j], j, 0);
           commitLayout->addWidget(commitInfo[j], j, 1);
-          // QLabel* label = new QLabel("str");
-          // std::cout << (j+1)<<". <" << i <<"> <"<< i.signature().name() << "> <" << i.message() << "\n";
           j = j + 1;
         }
         else
@@ -115,34 +109,23 @@ public:
         }
       }
     }
+    //Add layouts then set main
     mainLayout->addLayout(commitLayout);
     setLayout(mainLayout);
-    // setCentralWidget(centralWidget);
     show();
 
   }
 
 public slots:
+  //gets combobox value then uses it to checkout
   void changeBranch( QString new_branch ) {
     std::string path=".";
     GITPP::REPO r(path.c_str());
     std::string newString = new_branch.toUtf8().constData();
     r.checkout(newString);
     this->update();
-    // Execute();
   }
-  //
-  // void clickedSlot(QString branchName)
-  // {
-  //   this->update();
-  //   QMessageBox msgBox;
-  //   msgBox.setWindowTitle("MessageBox Title");
-  //   // msgBox.setText("You Clicked "+ ((QPushButton*)sender())->text());
-  //   msgBox.setText("Updating commits");
-  //   //msgBox.setText(((QcomboBox*)com->itemData(comboBox->currentIndex()));
-  //   msgBox.exec();
-  // }
 };
-INSTALL_TAB(listCommits,__FILE__ ); //change to sc17r2jb
+INSTALL_TAB(listCommits, "List Commit's" );
 
 }

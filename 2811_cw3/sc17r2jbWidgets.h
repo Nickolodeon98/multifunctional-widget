@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <QtWidgets>
 #include <QLineEdit>
+#include <QObject>
 
 #ifndef CoreLayout
 #define CoreLayout

@@ -63,7 +63,7 @@ public:	ConfigurationTab(): QTabWidget(){
 	userLayout->addWidget(emailEdit, 1, 2);
 	userLayout->addWidget(emailButton, 1, 3);
 	//line edit text
-	nameEdit->setPlaceholderText("new name..."");
+	nameEdit->setPlaceholderText("new name...");
 	emailEdit->setPlaceholderText("new email here");
 	//buttons
 	//connect(nameButton, SIGNAL (released()), this, SLOT (handleNameButton()));		//these create issues
@@ -81,7 +81,7 @@ void handleEmailButton(){
 	emailEdit->setText("okay");
 	}
 };
-INSTALL_TAB(ConfigurationTab, "Ryan's Tab"); //change to sc17r2jb
+INSTALL_TAB(ConfigurationTab, "Configrations"); //change to sc17r2jb
 }
 
 
