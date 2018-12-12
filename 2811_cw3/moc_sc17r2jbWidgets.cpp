@@ -18,6 +18,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+<<<<<<< HEAD
 struct qt_meta_stringdata_NameButton_t {
     QByteArrayData data[1];
     char stringdata[11];
@@ -36,6 +37,26 @@ QT_MOC_LITERAL(0, 0, 10)
 #undef QT_MOC_LITERAL
 
 static const uint qt_meta_data_NameButton[] = {
+=======
+struct qt_meta_stringdata_NameEdit_t {
+    QByteArrayData data[1];
+    char stringdata[9];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_NameEdit_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_NameEdit_t qt_meta_stringdata_NameEdit = {
+    {
+QT_MOC_LITERAL(0, 0, 8)
+    },
+    "NameEdit"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_NameEdit[] = {
+>>>>>>> 140eb38a789693ad4d4b0bdc85ff75b1ddbf28ab
 
  // content:
        7,       // revision
@@ -51,7 +72,11 @@ static const uint qt_meta_data_NameButton[] = {
        0        // eod
 };
 
+<<<<<<< HEAD
 void NameButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+=======
+void NameEdit::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+>>>>>>> 140eb38a789693ad4d4b0bdc85ff75b1ddbf28ab
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -59,6 +84,7 @@ void NameButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     Q_UNUSED(_a);
 }
 
+<<<<<<< HEAD
 const QMetaObject NameButton::staticMetaObject = {
     { &QPushButton::staticMetaObject, qt_meta_stringdata_NameButton.data,
       qt_meta_data_NameButton,  qt_static_metacall, 0, 0}
@@ -66,10 +92,20 @@ const QMetaObject NameButton::staticMetaObject = {
 
 
 const QMetaObject *NameButton::metaObject() const
+=======
+const QMetaObject NameEdit::staticMetaObject = {
+    { &QPushButton::staticMetaObject, qt_meta_stringdata_NameEdit.data,
+      qt_meta_data_NameEdit,  qt_static_metacall, 0, 0}
+};
+
+
+const QMetaObject *NameEdit::metaObject() const
+>>>>>>> 140eb38a789693ad4d4b0bdc85ff75b1ddbf28ab
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
+<<<<<<< HEAD
 void *NameButton::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
@@ -79,6 +115,17 @@ void *NameButton::qt_metacast(const char *_clname)
 }
 
 int NameButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+=======
+void *NameEdit::qt_metacast(const char *_clname)
+{
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_NameEdit.stringdata))
+        return static_cast<void*>(const_cast< NameEdit*>(this));
+    return QPushButton::qt_metacast(_clname);
+}
+
+int NameEdit::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+>>>>>>> 140eb38a789693ad4d4b0bdc85ff75b1ddbf28ab
 {
     _id = QPushButton::qt_metacall(_c, _id, _a);
     if (_id < 0)
