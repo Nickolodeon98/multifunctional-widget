@@ -570,7 +570,7 @@ moc_tabs.cpp: /home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qvector2d.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qtouchdevice.h \
 		tabs.h
-	/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/bin/moc $(DEFINES) -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/mkspecs/linux-g++ -I'/home/cserv1_a/soc_ug/sc17mtab/Documents/User Interface/CWK_3/ui_cwk3/2811_cw3' -I'/home/cserv1_a/soc_ug/sc17mtab/Documents/User Interface/CWK_3/ui_cwk3/2811_cw3' -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore tabs.h -o moc_tabs.cpp
+	/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/bin/moc $(DEFINES) -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/fy16stl/ui_cwk3/2811_cw3 -I/home/cserv1_a/soc_ug/fy16stl/ui_cwk3/2811_cw3 -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui -I/home/csunix/linux/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore tabs.h -o moc_tabs.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1705,6 +1705,7 @@ sc17r2jb.o: sc17r2jb.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLabel \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlabel.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore/QString \
 		gitpp.h \
 		trace.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QGridLayout \
@@ -2475,7 +2476,9 @@ sc17j4a.o: sc17j4a.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QListWidget \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QListWidgetItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sc17j4a.o sc17j4a.cc
 
 fy16stl.o: fy16stl.cc globals.h \
@@ -2580,9 +2583,16 @@ fy16stl.o: fy16stl.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore/qfiledevice.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qvector2d.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		gitpp.h \
+		trace.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLabel \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlabel.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QGridLayout \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QtWidgets \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtCore/QtCore \
@@ -2840,10 +2850,6 @@ fy16stl.o: fy16stl.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qapplication.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlayout.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qformlayout.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLayout \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qgesture.h \
@@ -2911,9 +2917,12 @@ fy16stl.o: fy16stl.cc globals.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QLineEdit \
 		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QComboBox \
-		gitpp.h \
-		trace.h
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QPushButton \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QMessageBox \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/cserv1_b/apps/install/qt/5.3.1/5.3/gcc_64/include/QtWidgets/QFileDialog
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fy16stl.o fy16stl.cc
 
 moc_tabs.o: moc_tabs.cpp 
