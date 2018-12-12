@@ -54,33 +54,35 @@ class listCommits : public QTabWidget{
 
       //Populate combobox with branches
       QComboBox *comboBox = new QComboBox;
+
       //////////////////////////BUTTON////////////////////////////////////
-      QPushButton *updateButton = new QPushButton("Update Branch", this);
-      updateButton->setText("Button No. 1");
-      QObject::connect(updateButton, SIGNAL(clicked()),this, SLOT(clickedSlot()));
-      updateButton->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+      QPushButton *updateButton = new QPushButton("Update Button", this);
+      QString comboBox_Value;
+      comboBox_Value = comboBox->currentText();
+      connect(comboBox, SIGNAL(currentTextChanged(QString)), SLOT(changeBranch(QString)));
       mainLayout->addWidget(updateButton);
       ///////////////////////END OF BUTTON////////////////////////////////
 
-      count = 1;
+    count = 1;
 
-      for(GITPP::BRANCH i : r.branches())
-      {
-        comboBox->addItem(QString::fromStdString(i.name()));
-      }
+    for(GITPP::BRANCH i : r.branches())
+    {
+      comboBox->addItem(QString::fromStdString(i.name()));
+    }
 
-      branchLayout->addWidget(comboBox,count+1, 0);
-      branchLayout->addWidget(updateButton, count+1, 1);
+    branchLayout->addWidget(comboBox,count+1, 0);
+    branchLayout->addWidget(updateButton, count+1, 1);
 
-      mainLayout->addLayout(branchLayout);
+
+    mainLayout->addLayout(branchLayout);
   }
-
   int countCommits = 0;
   for(GITPP::COMMIT i : r.commits())
   {
     countCommits = countCommits + 1;
   }
 
+  // countCommits=countCommits+1;
   //If no commits
   if(countCommits==0)
   {
@@ -89,6 +91,8 @@ class listCommits : public QTabWidget{
 
     commitLayout->addWidget(labels[0], 0, 0);
     commitLayout->addWidget(labels[1], 1, 0);
+
+
   }
   else
   {
@@ -118,19 +122,34 @@ class listCommits : public QTabWidget{
       }
     }
   }
-  // mainLayout->addLayout(commitLayout);
-  // setLayout(mainLayout);
+  mainLayout->addLayout(commitLayout);
+  setLayout(mainLayout);
+  // setCentralWidget(centralWidget);
   show();
+
   }
 
 public slots:
-  void clickedSlot()
-  {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("MessageBox Title");
-    msgBox.setText("You Clicked "+ ((QPushButton*)sender())->text());
-    msgBox.exec();
+  void changeBranch( QString new_branch ) {
+    std::string path=".";
+    GITPP::REPO r(path.c_str());
+    std::string newString = new_branch.toUtf8().constData();
+    r.checkout(newString);
+    this->update();
+    // Execute();
   }
+  //
+  // void clickedSlot(QString branchName)
+  // {
+  //   this->update();
+  //   QMessageBox msgBox;
+  //   msgBox.setWindowTitle("MessageBox Title");
+  //   // msgBox.setText("You Clicked "+ ((QPushButton*)sender())->text());
+  //   msgBox.setText("Updating commits");
+  //   //msgBox.setText(((QcomboBox*)com->itemData(comboBox->currentIndex()));
+  //   msgBox.exec();
+  // }
+signals:
+  void clickSignal(QString branchName);
 };
-INSTALL_TAB(listCommits, __FILE__);
 }
