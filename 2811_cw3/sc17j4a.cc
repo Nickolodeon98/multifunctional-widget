@@ -12,24 +12,24 @@
 
 namespace searchCommits{
 
-class SearchTab : public QTabWidget{
+class SearchTab : public QLabel{
 
 	QGridLayout* layout = new QGridLayout();
-	QGridLayout* searchResults = new QGridLayout();
 
-	QLabel* header=new QLabel('Search your commits', layout);
+	QLabel* header=new QLabel("Search your commits");
 	QLineEdit* searchField=new QLineEdit();
 	// searchField->setFont(QFont("Typewriter", 25));
-	searchField->setPlaceholderText("Enter your search terms here");
-	QPushButton* updateButton = new QPushButton("Search", layout);
+	// searchField->setPlaceholderText("Enter your search terms here");
+	QPushButton* updateButton = new QPushButton("Search", this);
 
 	QListWidget* searchResults=new QListWidget();
 	QListWidgetItem* noResults = new QListWidgetItem(searchResults);
+	QString noRes = "Sorry, no results were found.";
 
 
 
 public:
-	SearchTab() : QTabWidget(){
+	SearchTab() : QLabel(){
 
 		layout->addWidget(header, 0, 0, 0, 2, Qt::AlignCenter);
 		layout->addWidget(searchField, 1, 0);
@@ -37,7 +37,7 @@ public:
 		layout->addWidget(searchResults, 2, 0, 0, 2, Qt::AlignCenter);
 
 
-		connect(updateButton, SIGNAL(clicked()), SLOT(updateResults(searchField->text()));
+		connect(updateButton, SIGNAL(clicked()), SLOT(updateResults(searchField->text())));
 		QString searchTerm = searchField->text();
 
 
@@ -47,7 +47,7 @@ public:
 
 
 	public slots:
-		void updateResults( QString searchTerm ) {
+		void updateResults( std::string searchTerm ) {
 			GITPP::REPO r;
 			for(auto i : r.commits()){
 				if (i.message().find(searchTerm) != std::string::npos) {
@@ -55,8 +55,8 @@ public:
 					<< "\n message: " << i.message() << "\n";
 				}
 				else {
-					searchResults->addItem(noResults)
-					noResults->setText('Sorry, no results were found.')
+					searchResults->addItem(noResults);
+					noResults->setText(noRes);
 				}
 
 			}
