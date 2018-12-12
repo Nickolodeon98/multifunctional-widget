@@ -7,28 +7,63 @@
 #include <QGridLayout>
 #include <QtWidgets>
 #include <QLineEdit>
+#include <QListWidget>
+#include <QListWidgetItem>
 
 namespace searchCommits{
 
-class HelloWorldLabel : public QLabel{
+class SearchTab : public QTabWidget{
+
+	QGridLayout* layout = new QGridLayout();
+	QGridLayout* searchResults = new QGridLayout();
+
+	QLabel* header=new QLabel('Search your commits', layout);
+	QLineEdit* searchField=new QLineEdit();
+	// searchField->setFont(QFont("Typewriter", 25));
+	searchField->setPlaceholderText("Enter your search terms here");
+	QPushButton* updateButton = new QPushButton("Search", layout);
+
+	QListWidget* searchResults=new QListWidget();
+	QListWidgetItem* noResults = new QListWidgetItem(searchResults);
+
+
+
 public:
-	HelloWorldLabel() : QLabel(){
-		// setText("Jacks Tab");
-		GITPP::REPO r;
+	SearchTab() : QTabWidget(){
 
-		QLineEdit* textField=new QLineEdit();
-		textField->setFont(QFont("Typewriter", 25));
-		textField->setPlaceholderText("Enter your search terms here");
+		layout->addWidget(header, 0, 0, 0, 2, Qt::AlignCenter);
+		layout->addWidget(searchField, 1, 0);
+		layout->addWidget(updateButton, 1, 1);
+		layout->addWidget(searchResults, 2, 0, 0, 2, Qt::AlignCenter);
 
-		QGridLayout* layout = new QGridLayout();
-		layout->addWidget(textField, 0, 0);
-		// layout->addWidget(searchResults, 1, 0);
+
+		connect(updateButton, SIGNAL(clicked()), SLOT(updateResults(searchField->text()));
+		QString searchTerm = searchField->text();
+
 
 
 		setLayout(layout);
 	}
+
+
+	public slots:
+		void updateResults( QString searchTerm ) {
+			GITPP::REPO r;
+			for(auto i : r.commits()){
+				if (i.message().find(searchTerm) != std::string::npos) {
+					std::cout << i << " " << i.signature().name()
+					<< "\n message: " << i.message() << "\n";
+				}
+				else {
+					searchResults->addItem(noResults)
+					noResults->setText('Sorry, no results were found.')
+				}
+
+			}
+		}
 };
 
-INSTALL_TAB(HelloWorldLabel, "Jack's Tab");
+
+INSTALL_TAB(SearchTab, "Jack's Tab");
 
 }
