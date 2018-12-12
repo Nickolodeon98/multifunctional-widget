@@ -21,11 +21,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += window.h tabs.h  sc17r2jbWidgets.h sc17mtab.h
+HEADERS += window.h tabs.h  sc17r2jbWidgets.h
 SOURCES += globals.cc main.cc window.cc tabs.cc hello.cc
 
 # just link demo tabs
-# LIBS += scsfsa.o sc17mtab.o sc17r2jb.o sc17j4a.o fy16sj.o fy16stl.o
+# LIBS += scsfsa.o sc17r2jb.o sc17j4a.o fy16sj.o fy16stl.o sc17mtab.o
 
 # rebuild demo tabs
-SOURCES += scsfsa.cc sc17r2jb.cc sc17j4a.cc fy16sj.cc fy16stl.cc
+SOURCES += scsfsa.cc sc17r2jb.cc sc17j4a.cc fy16sj.cc fy16stl.cc sc17mtab.cc
