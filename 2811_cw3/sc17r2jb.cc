@@ -21,8 +21,10 @@ class ConfigurationTab: public QTabWidget{
 	QGridLayout *coreLayout = new QGridLayout;
 	QGridLayout *userLayout = new QGridLayout;
 
-	QLabel *coreLabels[4];
+	QLabel *coreLabels[5];
 	QLabel *title = new QLabel("<h3>Configurations<h3>");
+
+	QLabel *pushDefaultLabel = new QLabel("push.default:");
 	//labels for core
 	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
 	//QLabel *rfvValueLabel = new QLabel();
@@ -58,14 +60,16 @@ public:	ConfigurationTab(): QTabWidget(){
 
 	title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 	//core layout
-	coreLayout->addWidget(rfvLabel, 0, 0);
+	coreLayout->addWidget(pushDefaultLabel, 0, 0);
 	coreLayout->addWidget(coreLabels[0], 0, 1);
-	coreLayout->addWidget(filemodeLabel, 1, 0);
+	coreLayout->addWidget(rfvLabel, 1, 0);
 	coreLayout->addWidget(coreLabels[1], 1, 1);
-	coreLayout->addWidget(bareLabel, 2, 0);
+	coreLayout->addWidget(filemodeLabel, 2, 0);
 	coreLayout->addWidget(coreLabels[2], 2, 1);
-	coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
+	coreLayout->addWidget(bareLabel, 3, 0);
 	coreLayout->addWidget(coreLabels[3], 3, 1);
+	coreLayout->addWidget(logallrefupdatesLabel, 4, 0);
+	coreLayout->addWidget(coreLabels[4], 4, 1);
 	//user layout
 	userLayout->addWidget(nameLabel, 0, 0);
 	userLayout->addWidget(nameLabelValue, 0, 1);
@@ -94,7 +98,7 @@ void handleEmailButton(){
 	emailEdit->setText("okay");
 	}
 };
-INSTALL_TAB(ConfigurationTab, "Ryan's Tab"); //change to sc17r2jb
+INSTALL_TAB(ConfigurationTab, "Configurations"); //change to sc17r2jb
 }
 
 
