@@ -88,6 +88,7 @@ public:
     }
     else
     {
+      labels[0] = new QLabel("No Commits to display!");
       //List commits (upto to ten)
       int j = 0;
       for(auto i : r.commits())
