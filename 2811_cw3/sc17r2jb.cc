@@ -2,6 +2,7 @@
 //#include "sc17r2jbWidgets.h"
 
 #include <QLabel>
+#include <QString>
 #include <string>
 #include <iostream>
 #include "gitpp.h"
@@ -20,16 +21,17 @@ class ConfigurationTab: public QTabWidget{
 	QGridLayout *coreLayout = new QGridLayout;
 	QGridLayout *userLayout = new QGridLayout;
 
+	QLabel *coreLabels[4];
 	QLabel *title = new QLabel("<h3>Configurations<h3>");
 	//labels for core
 	QLabel *rfvLabel = new QLabel("repositoryformatversion:");
-	QLabel *rfvValueLabel = new QLabel();
+	//QLabel *rfvValueLabel = new QLabel();
 	QLabel *filemodeLabel = new QLabel("filemode:");
-	QLabel *fmValueLabel = new QLabel();
+	//QLabel *fmValueLabel = new QLabel();
 	QLabel *bareLabel = new QLabel("bare:");
-	QLabel *bareValueLabel = new QLabel();
+	//QLabel *bareValueLabel = new QLabel();
 	QLabel *logallrefupdatesLabel = new QLabel("logallrefupdates:");
-	QLabel *lruValueLabel = new QLabel();
+	//QLabel *lruValueLabel = new QLabel();
 	//labels for user
 	QLabel *nameLabel = new QLabel("name:");
 	QLabel *nameLabelValue = new QLabel("                           ");
@@ -44,18 +46,26 @@ class ConfigurationTab: public QTabWidget{
 
 public:	ConfigurationTab(): QTabWidget(){
 	//getting variables from .config
-	
+	GITPP::REPO r;
+	int a = 0;
+	for(auto i : r.config()){
+		if(i.name() != "remote.origin.fetch" && i.name() != "user.stuff"){
+			coreLabels[a] = new QLabel(QString::fromStdString(i.value()));
+			//coreLabels[a]->setText(i.name());
+			a++;
+		}
+	}
 
 	title->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 	//core layout
 	coreLayout->addWidget(rfvLabel, 0, 0);
-	coreLayout->addWidget(rfvValueLabel, 0, 1);
+	coreLayout->addWidget(coreLabels[0], 0, 1);
 	coreLayout->addWidget(filemodeLabel, 1, 0);
-	coreLayout->addWidget(fmValueLabel, 1, 1);
+	coreLayout->addWidget(coreLabels[1], 1, 1);
 	coreLayout->addWidget(bareLabel, 2, 0);
-	coreLayout->addWidget(bareValueLabel, 2, 1);
+	coreLayout->addWidget(coreLabels[2], 2, 1);
 	coreLayout->addWidget(logallrefupdatesLabel, 3, 0);
-	coreLayout->addWidget(lruValueLabel, 3, 1);
+	coreLayout->addWidget(coreLabels[3], 3, 1);
 	//user layout
 	userLayout->addWidget(nameLabel, 0, 0);
 	userLayout->addWidget(nameLabelValue, 0, 1);
