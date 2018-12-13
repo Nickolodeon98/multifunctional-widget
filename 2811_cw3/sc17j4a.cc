@@ -20,7 +20,7 @@ private:
 	QGridLayout* layout = new QGridLayout();
 	QGridLayout* headerLayout = new QGridLayout();
 
-	QLabel* header=new QLabel("Search your commits");
+	QLabel* header=new QLabel("<h3>Search your commits<h3>");
 	QLineEdit* searchField=new QLineEdit();
 	// searchField->setFont(QFont("Typewriter", 25));
 	QString placeholder = "Enter your search terms here";
@@ -28,6 +28,7 @@ private:
 	QPushButton* updateButton = new QPushButton("Search", this);
 
 	QListWidget* searchResults=new QListWidget();
+
 	QString noRes = "Sorry, no results were found.";
 
 
@@ -35,6 +36,8 @@ private:
 public:
 	SearchTab(){
 		searchField->setPlaceholderText(placeholder);
+		searchResults->setMinimumWidth(384);
+		searchResults->setMinimumHeight(330);
 
 		headerLayout->addWidget(header, 0, 0, 1, 2, Qt::AlignCenter);
 		headerLayout->addWidget(searchField, 1, 0);
@@ -78,16 +81,17 @@ public slots:
 					+ "\n message: " + i.message(); //converts commit to string
 					QString temp = QString::fromStdString(tempString);
 					searchResults->addItem(new QListWidgetItem(temp, searchResults));
-				} else if (searchResults->count()==0) {
-					searchResults->addItem(new QListWidgetItem(noRes, searchResults));
+				}
 			}
+			if (searchResults->count()==0) {
+				searchResults->addItem(new QListWidgetItem(noRes, searchResults));
 			}
 
 		}
 };
 
 
-INSTALL_TAB(SearchTab, "Jack's Tab");
+INSTALL_TAB(SearchTab, "Search Commits");
 
 }
 
