@@ -80,7 +80,7 @@ public:
 // 	}
 // };
 
-INSTALL_TAB(StatisticsTab, __FILE__);
+INSTALL_TAB(StatisticsTab, "Statistics");
 // INSTALL_TAB(StatisticsWidget, "Seunghwan's Tab");
 
 }
