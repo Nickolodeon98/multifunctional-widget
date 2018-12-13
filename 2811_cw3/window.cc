@@ -34,6 +34,8 @@ void HelloWindow::createWindowContent()
 	// Put layout in the middle of the window
 
 	_mainWidget = new QWidget();
+	_mainWidget->setMinimumSize(500, 500);
+	_mainWidget->setMaximumHeight(900);
 	_mainWidget->setLayout(layout);
 
 	setCentralWidget(_mainWidget);
